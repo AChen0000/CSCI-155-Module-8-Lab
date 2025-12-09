@@ -1,53 +1,49 @@
-import java.io.File;
-import java.io.FileNotFoundException;
 import java.util.Scanner;
 
 public class GradeExam {
     public static void main(String[] args) {
-        // The answer key (10 True/False answers)
+
+        Scanner input = new Scanner(System.in);
+
+        // The correct answer key
         String[] key = {"T", "F", "T", "T", "F", "T", "F", "F", "T", "F"};
 
-        File file = new File("answers.txt");
-        Scanner input;
-        try {
-            input = new Scanner(file);
-        } catch (FileNotFoundException e) {
-            System.out.println("Error: answers.txt not found. Put the file in the same folder as this program.");
-            return;
-        }
+        System.out.println("Enter each student's answers (10 T/F values).");
+        System.out.println("Type End to stop.");
 
         int studentNumber = 1;
 
-        // Read each student (one line per student)
-        while (input.hasNextLine()) {
+        while (true) {
+            System.out.print("\nStudent " + studentNumber + " answers: ");
+
             String line = input.nextLine().trim();
 
-            // skip empty lines
-            if (line.isEmpty()) {
-                continue;
+            // Stop the loop
+            if (line.equalsIgnoreCase("End")) {
+                System.out.println("\nBye!~");
+                break;
             }
 
-            // Split on any whitespace 
+            // Split into answers
             String[] answers = line.split("\\s+");
 
-            // Basic validation
-            if (answers.length < key.length) {
-                System.out.println("Student " + studentNumber + ": ERROR - missing answers (found " +
-                                   answers.length + ", expected " + key.length + ").");
-                studentNumber++;
-                continue;
+            // Check if exactly 10 answers were entered
+            if (answers.length != 10) {
+                System.out.println("Error: please enter EXACTLY 10 answers (T or F). Try again.");
+                continue; // ask again
             }
 
-            // Grade the exam
+            // Grade the student
             int score = 0;
+
             for (int i = 0; i < key.length; i++) {
                 if (answers[i].equalsIgnoreCase(key[i])) {
                     score++;
                 }
             }
 
-            // Print the result
-            System.out.println("Student " + studentNumber + ": " + score + " correct");
+            // Print the results
+            System.out.println("Student " + studentNumber + " got " + score + " correct.");
             studentNumber++;
         }
 
