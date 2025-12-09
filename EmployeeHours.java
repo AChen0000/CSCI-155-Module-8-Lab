@@ -2,7 +2,7 @@ import java.util.Arrays;
 import java.util.Scanner;
 
 public class EmployeeHours {
-    public static void main(String[] args) {
+public static void main(String[] args) {
         int[][] hours = {
             {2, 4, 3, 4, 5, 8, 8},
             {7, 3, 4, 3, 3, 4, 4},
